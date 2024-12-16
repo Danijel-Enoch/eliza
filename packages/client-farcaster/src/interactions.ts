@@ -41,7 +41,7 @@ export class FarcasterInteractionManager {
                 return;
             }
 
-            this.timeout = setTimeout(
+            setTimeout(
                 handleInteractionsLoop,
                 Number(
                     this.runtime.getSetting("FARCASTER_POLL_INTERVAL") || 120

@@ -124,10 +124,7 @@ export class InteractionClient {
 
         const handleInteractionsLoop = () => {
             this.handleInteractions();
-            this.pollInterval = setTimeout(
-                handleInteractionsLoop,
-                pollInterval * 1000
-            );
+            setTimeout(handleInteractionsLoop, pollInterval * 1000);
         };
 
         handleInteractionsLoop();

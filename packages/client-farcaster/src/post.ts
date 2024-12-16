@@ -4,7 +4,7 @@ import {
     IAgentRuntime,
     ModelClass,
     stringToUuid,
-    elizaLogger
+    elizaLogger,
 } from "@ai16z/eliza";
 import { FarcasterClient } from "./client";
 import { formatTimeline, postTemplate } from "./prompts";
@@ -27,11 +27,11 @@ export class FarcasterPostManager {
             try {
                 await this.generateNewCast();
             } catch (error) {
-                elizaLogger.error(error)
+                elizaLogger.error(error);
                 return;
             }
 
-            this.timeout = setTimeout(
+            setTimeout(
                 generateNewCastLoop,
                 (Math.floor(Math.random() * (4 - 1 + 1)) + 1) * 60 * 60 * 1000
             ); // Random interval between 1 and 4 hours
@@ -119,11 +119,8 @@ export class FarcasterPostManager {
                 content = content.slice(0, content.lastIndexOf("."));
             }
 
-
             if (this.runtime.getSetting("FARCASTER_DRY_RUN") === "true") {
-                elizaLogger.info(
-                    `Dry run: would have cast: ${content}`
-                );
+                elizaLogger.info(`Dry run: would have cast: ${content}`);
                 return;
             }
 
@@ -149,7 +146,9 @@ export class FarcasterPostManager {
                     roomId
                 );
 
-                elizaLogger.info(`[Farcaster Neynar Client] Published cast ${cast.hash}`);
+                elizaLogger.info(
+                    `[Farcaster Neynar Client] Published cast ${cast.hash}`
+                );
 
                 await this.runtime.messageManager.createMemory(
                     createCastMemory({
@@ -159,10 +158,10 @@ export class FarcasterPostManager {
                     })
                 );
             } catch (error) {
-                elizaLogger.error("Error sending cast:", error)
+                elizaLogger.error("Error sending cast:", error);
             }
         } catch (error) {
-            elizaLogger.error("Error generating new cast:", error)
+            elizaLogger.error("Error generating new cast:", error);
         }
     }
 }

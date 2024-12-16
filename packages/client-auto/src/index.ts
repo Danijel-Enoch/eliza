@@ -8,7 +8,7 @@ export class AutoClient {
         this.runtime = runtime;
 
         // start a loop that runs every x seconds
-        this.interval = setInterval(
+        setInterval(
             async () => {
                 console.log("running auto client...");
             },
